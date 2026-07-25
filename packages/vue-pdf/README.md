@@ -3,13 +3,12 @@
 Community-maintained **Vue 2.7** PDF viewer component.
 
 Based on the original **[vue-pdf](https://github.com/FranckFreiburger/vue-pdf)** by **Franck Freiburger**.  
-This package is an **ESM rebuild** for modern bundlers. It is **not** the official `vue-pdf` release, and **not** the unscoped `vue2-pdf` package already on npm.
+This is an **ESM rebuild** for modern bundlers — **not** the official `vue-pdf` package.
 
 ## Install
 
 ```bash
 pnpm add @daguanren21/vue-pdf
-pnpm add vue@^2.7
 ```
 
 ## Usage
@@ -49,7 +48,7 @@ setWorkerSrc('/static/pdf.worker.min.mjs')
 ## Credits
 
 - Original: [Franck Freiburger / vue-pdf](https://github.com/FranckFreiburger/vue-pdf)
-- Resize helper: published as [`@daguanren21/vue-resize-sensor`](https://www.npmjs.com/package/@daguanren21/vue-resize-sensor)
+- Resize helper: [`@daguanren21/vue-resize-sensor`](https://www.npmjs.com/package/@daguanren21/vue-resize-sensor)
 - Engine: [pdf.js](https://github.com/mozilla/pdf.js)
 
 ## License

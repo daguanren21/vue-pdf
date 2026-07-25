@@ -8,7 +8,6 @@ Used by [`@daguanren21/vue-pdf`](https://www.npmjs.com/package/@daguanren21/vue-
 
 ```bash
 pnpm add @daguanren21/vue-resize-sensor
-pnpm add vue@^2.7
 ```
 
 ## Usage

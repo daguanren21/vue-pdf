@@ -2,53 +2,31 @@
 
 Community-maintained **Vue 2.7** PDF viewer, rebuilt as modern **ESM** for Vite / webpack.
 
-> **This is not the official `vue-pdf` package, and not the existing unscoped `vue2-pdf` package on npm.**  
+> **Not** the official [`vue-pdf`](https://github.com/FranckFreiburger/vue-pdf).  
 > Original work by **[Franck Freiburger](https://www.franck-freiburger.com)** — please credit the original author.
 
-## Origins & attribution
+## Origins
 
-| Piece | Upstream | Notes |
-| --- | --- | --- |
-| PDF component idea & API | [FranckFreiburger/vue-pdf](https://github.com/FranckFreiburger/vue-pdf) | Original Vue 2 PDF viewer (`createLoadingTask`, page/rotate props, events) |
-| Resize detector | [FranckFreiburger/vue-resize-sensor](https://github.com/FranckFreiburger/vue-resize-sensor) | Original resize sensor, re-packaged here as ESM |
-| PDF engine | [mozilla/pdf.js](https://github.com/mozilla/pdf.js) via `pdfjs-dist` | Rendering / workers / annotations |
-
-This repository is a **community ESM rebuild** for current toolchains:
-
-- drops `worker-loader` / `raw-loader` / Babel 6 era packaging
-- ships a local `pdf.worker.min.mjs` (no CDN default)
-- targets **Vue 2.7** + modern bundlers (Vite, webpack 5 / vue-cli)
-
-The original design, component API, and much of the behavior belong to Franck Freiburger.  
-This fork only modernizes packaging and dependencies so projects like onsite Vue 2 apps can keep using the same mental model.
-
-## Why scoped names?
-
-| Name | Status |
+| Piece | Upstream |
 | --- | --- |
-| `vue-pdf` | Original package (Franck) — do not take over |
-| `vue2-pdf` | Already occupied on npm by another author |
-| **`@daguanren21/vue-pdf`** | This community ESM rebuild |
+| Component API / design | [FranckFreiburger/vue-pdf](https://github.com/FranckFreiburger/vue-pdf) |
+| Resize detector | [FranckFreiburger/vue-resize-sensor](https://github.com/FranckFreiburger/vue-resize-sensor) |
+| PDF engine | [mozilla/pdf.js](https://github.com/mozilla/pdf.js) (`pdfjs-dist`) |
+
+This repo only modernizes packaging for current toolchains: no `worker-loader` / `raw-loader`, local `pdf.worker.min.mjs`, Vue 2.7 + Vite / webpack 5.
 
 ## Packages
 
-| Package | Path | Description |
-| --- | --- | --- |
-| [`@daguanren21/vue-pdf`](./packages/vue-pdf) | `packages/vue-pdf` | PDF viewer component + `createLoadingTask` |
-| [`@daguanren21/vue-resize-sensor`](./packages/vue-resize-sensor) | `packages/vue-resize-sensor` | Resize detector (ESM packaging of upstream sensor) |
-| `@daguanren21/vue-pdf-playground` | `apps/playground` | Local Vue 2.7 smoke-test app (private) |
-
-## Requirements
-
-- Node `>= 20.19` (CI uses Node 24)
-- pnpm `>= 10` (repo pinned to `pnpm@10.34.5` via `packageManager`)
+| Package | Path |
+| --- | --- |
+| [`@daguanren21/vue-pdf`](./packages/vue-pdf) | `packages/vue-pdf` |
+| [`@daguanren21/vue-resize-sensor`](./packages/vue-resize-sensor) | `packages/vue-resize-sensor` |
+| `@daguanren21/vue-pdf-playground` (private) | `apps/playground` |
 
 ## Install
 
 ```bash
 pnpm add @daguanren21/vue-pdf
-# peer
-pnpm add vue@^2.7
 ```
 
 ```ts
@@ -62,9 +40,9 @@ import '@daguanren21/vue-pdf/style.css'
 </template>
 ```
 
-Worker is **zero-config**. The package ships `pdf.worker.min.mjs` next to the ESM entry and resolves it with `import.meta.url` (same origin, no CDN).
+Worker is zero-config (`pdf.worker.min.mjs` next to the ESM entry via `import.meta.url`).
 
-### onsite-compatible loading task
+### Loading task (vue-pdf@4 compatible)
 
 ```ts
 import pdf from '@daguanren21/vue-pdf'
@@ -80,7 +58,7 @@ src.promise.then((doc) => {
 })
 ```
 
-For CJK PDFs, prefer modern pdf.js options when possible:
+CJK PDFs can pass modern pdf.js cmap options:
 
 ```ts
 createLoadingTask({
@@ -100,77 +78,95 @@ setWorkerSrc('/static/pdf.worker.min.mjs')
 ## Develop
 
 ```bash
-corepack enable
-corepack prepare pnpm@10.34.5 --activate
 pnpm install
-pnpm playground
-```
-
-Open `http://localhost:5173`.
-
-## Build / typecheck / test
-
-```bash
+pnpm playground   # http://localhost:5173
 pnpm build
 pnpm typecheck
 pnpm test
 ```
 
-## Changesets & release
-
-This monorepo uses [changesets](https://github.com/changesets/changesets).
-
-```bash
-# 1) after a meaningful change
-pnpm changeset
-
-# 2) version packages + changelogs
-pnpm version-packages
-
-# 3) build + publish
-pnpm release
-```
-
-### First local publish (bootstrap)
-
-```bash
-npm login   # as daguanren21
-pnpm install
-pnpm build
-pnpm version-packages
-pnpm exec changeset publish
-```
-
-### CI publish (OIDC — no `NPM_TOKEN`)
-
-- **CI** (`.github/workflows/ci.yml`): typecheck / test / build
-- **Release** (`.github/workflows/release.yml`): Version PR or publish via **npm Trusted Publishing (OIDC)**
-
-After the first local publish, configure Trusted Publisher on npmjs.com for each package:
-
-1. Package → **Settings** → **Trusted Publisher**
-2. Provider: **GitHub Actions**
-3. Repository: `daguanren21/vue-pdf`
-4. Workflow: `release.yml`
+Requires Node `>= 20.19`, pnpm `>= 10` (`packageManager`: `pnpm@10.34.5`).
 
 ## Migration from `vue-pdf@4`
+
+### Zero-code alias (recommended for onsite / legacy imports)
+
+Keep every `import … from 'vue-pdf'` / `vue-pdf/src/CMapReaderFactory.js` unchanged.  
+Only remap the dependency in the consumer package manager.
+
+**pnpm** (`package.json`):
+
+```json
+{
+  "dependencies": {
+    "vue-pdf": "npm:@daguanren21/vue-pdf@^5.0.0"
+  }
+}
+```
+
+**pnpm overrides** (monorepo root, force all workspaces):
+
+```json
+{
+  "pnpm": {
+    "overrides": {
+      "vue-pdf": "npm:@daguanren21/vue-pdf@^5.0.0"
+    }
+  }
+}
+```
+
+**npm** (`package.json`):
+
+```json
+{
+  "dependencies": {
+    "vue-pdf": "npm:@daguanren21/vue-pdf@^5.0.0"
+  },
+  "overrides": {
+    "vue-pdf": "npm:@daguanren21/vue-pdf@^5.0.0"
+  }
+}
+```
+
+**yarn** (`package.json`):
+
+```json
+{
+  "dependencies": {
+    "vue-pdf": "npm:@daguanren21/vue-pdf@^5.0.0"
+  },
+  "resolutions": {
+    "vue-pdf": "npm:@daguanren21/vue-pdf@^5.0.0"
+  }
+}
+```
+
+Then reinstall and drop old webpack-only glue if present:
+
+- remove `worker-loader` / `raw-loader` special-cases for `vue-pdf` / `pdfjs-dist`
+- remove `patch-package` patches that only fixed `worker-loader`
+- ensure the app still has Vue `^2.7` (already true for Vue projects)
+
+Subpath imports such as `vue-pdf/src/CMapReaderFactory.js` and `vue-pdf/style.css` keep working under the alias because this package re-exports those entry points.
+
+### Explicit import rename (optional)
 
 | Old | New |
 | --- | --- |
 | `vue-pdf` | `@daguanren21/vue-pdf` |
-| `worker-loader!pdfjs-dist/...` | removed (auto local worker) |
+| `worker-loader!…` | removed (auto local worker) |
 | `vue-pdf/src/CMapReaderFactory.js` | `@daguanren21/vue-pdf/src/CMapReaderFactory.js` |
-| webpack loaders | ESM + `import '@daguanren21/vue-pdf/style.css'` |
 
 API kept: `src` / `page` / `rotate`, `createLoadingTask`, events (`num-pages`, `page-loaded`, `progress`, `error`, `password`, `link-clicked`).
 
 ## Credits
 
 - **Franck Freiburger** — original [`vue-pdf`](https://github.com/FranckFreiburger/vue-pdf) and [`vue-resize-sensor`](https://github.com/FranckFreiburger/vue-resize-sensor)
-- **Mozilla PDF.js** contributors — rendering engine
-- **daguanren21** — community ESM rebuild packaging, Vue 2.7 tooling, tests, CI
+- **Mozilla PDF.js** contributors
+- **daguanren21** — ESM rebuild packaging / tests / CI
 
 ## License
 
 MIT — see [LICENSE](./LICENSE).  
-Original copyright remains with Franck Freiburger; fork maintainers hold copyright only on subsequent packaging changes.
+Original copyright remains with Franck Freiburger.
