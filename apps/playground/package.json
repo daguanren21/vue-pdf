@@ -1,0 +1,22 @@
+{
+  "name": "@daguanren21/vue-pdf-playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@daguanren21/vue-pdf": "workspace:*",
+    "@daguanren21/vue-resize-sensor": "workspace:*",
+    "vue": "^2.7.16"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.3.4",
+    "vite": "^7.3.6",
+    "vue-template-compiler": "^2.7.16"
+  }
+}

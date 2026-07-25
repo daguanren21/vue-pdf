@@ -1,0 +1,68 @@
+{
+  "name": "@daguanren21/vue-resize-sensor",
+  "version": "2.1.0",
+  "description": "Community-maintained ESM packaging of Franck Freiburger's vue-resize-sensor for Vue 2.7",
+  "type": "module",
+  "main": "./dist/vue-resize-sensor.js",
+  "module": "./dist/vue-resize-sensor.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/vue-resize-sensor.js",
+      "default": "./dist/vue-resize-sensor.js"
+    },
+    "./style.css": "./dist/vue-resize-sensor.css"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.vue"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "keywords": [
+    "vue",
+    "vue2",
+    "resize",
+    "sensor",
+    "detect",
+    "esm"
+  ],
+  "author": "Franck FREIBURGER",
+  "contributors": [
+    "daguanren21 (community ESM packaging maintainer)"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "@vitejs/plugin-vue2": "^2.3.4",
+    "vite": "^7.3.6",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^2.7.16",
+    "vue-template-compiler": "^2.7.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daguanren21/vue-pdf.git",
+    "directory": "packages/vue-resize-sensor"
+  },
+  "bugs": {
+    "url": "https://github.com/daguanren21/vue-pdf/issues"
+  },
+  "homepage": "https://github.com/daguanren21/vue-pdf/tree/master/packages/vue-resize-sensor#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}

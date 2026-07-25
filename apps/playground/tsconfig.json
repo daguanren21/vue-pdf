@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["vite/client", "node"],
+    "paths": {
+      "@daguanren21/vue-pdf": ["../../packages/vue-pdf/src/index.ts"],
+      "@daguanren21/vue-resize-sensor": ["../../packages/vue-resize-sensor/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue", "vite.config.ts"]
+}

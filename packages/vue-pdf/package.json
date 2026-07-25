@@ -1,0 +1,93 @@
+{
+  "name": "@daguanren21/vue-pdf",
+  "version": "5.0.0",
+  "description": "Community-maintained Vue 2.7 PDF viewer based on Franck Freiburger's vue-pdf, rebuilt as modern ESM for Vite/webpack",
+  "type": "module",
+  "main": "./dist/vue-pdf.js",
+  "module": "./dist/vue-pdf.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/vue-pdf.js",
+      "default": "./dist/vue-pdf.js"
+    },
+    "./style.css": "./dist/vue-pdf.css",
+    "./pdf.worker.min.mjs": "./dist/pdf.worker.min.mjs",
+    "./src/CMapReaderFactory.js": {
+      "types": "./dist/CMapReaderFactory.d.ts",
+      "import": "./dist/CMapReaderFactory.js",
+      "default": "./dist/CMapReaderFactory.js"
+    },
+    "./CMapReaderFactory": {
+      "types": "./dist/CMapReaderFactory.d.ts",
+      "import": "./dist/CMapReaderFactory.js",
+      "default": "./dist/CMapReaderFactory.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.vue"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "vue",
+    "vue2",
+    "pdf",
+    "viewer",
+    "pdfjs",
+    "vite",
+    "esm",
+    "vue-pdf"
+  ],
+  "author": "Franck FREIBURGER",
+  "contributors": [
+    "daguanren21 (community ESM rebuild maintainer)"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^2.7.0"
+  },
+  "dependencies": {
+    "@daguanren21/vue-resize-sensor": "workspace:*",
+    "pdfjs-dist": "^4.10.38"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "@vitejs/plugin-vue2": "^2.3.4",
+    "@vue/test-utils": "1",
+    "happy-dom": "^20.11.1",
+    "vite": "^7.3.6",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.1.10",
+    "vue": "^2.7.16",
+    "vue-template-compiler": "^2.7.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daguanren21/vue-pdf.git",
+    "directory": "packages/vue-pdf"
+  },
+  "bugs": {
+    "url": "https://github.com/daguanren21/vue-pdf/issues"
+  },
+  "homepage": "https://github.com/daguanren21/vue-pdf#readme",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
