@@ -1,6 +1,6 @@
 {
   "name": "@daguanren21/vue-resize-sensor",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Community-maintained ESM packaging of Franck Freiburger's vue-resize-sensor for Vue 2.7",
   "type": "module",
   "main": "./dist/vue-resize-sensor.js",
