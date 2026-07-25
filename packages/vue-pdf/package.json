@@ -85,7 +85,7 @@
   },
   "homepage": "https://github.com/daguanren21/vue-pdf#readme",
   "engines": {
-    "node": ">=20.19.0"
+    "node": ">=20.19.0 || >=22"
   },
   "publishConfig": {
     "access": "public"

@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # Changesets needs full history for changelogs
           fetch-depth: 0
@@ -33,9 +33,9 @@ jobs:
           version: 10.34.5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version-file: .nvmrc
+          node-version: 24
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
@@ -50,14 +50,14 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          # `pnpm release` => build + changeset publish
+          version: pnpm version-packages
           # Auth is OIDC only — no NPM_TOKEN / NODE_AUTH_TOKEN.
-          # Configure Trusted Publisher for @daguanren21/vue-pdf and @daguanren21/vue-resize-sensor.
+          # Trusted Publisher for @daguanren21/vue-pdf and @daguanren21/vue-resize-sensor
+          # must point at this workflow filename: release.yml
           publish: pnpm release
           title: 'chore: version packages'
           commit: 'chore: version packages'
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Force provenance when supported (OIDC trusted publish also attaches it).
           NPM_CONFIG_PROVENANCE: 'true'

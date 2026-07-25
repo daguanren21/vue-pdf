@@ -40,7 +40,7 @@ This fork only modernizes packaging and dependencies so projects like onsite Vue
 
 ## Requirements
 
-- Node `>= 20.19`
+- Node `>= 20.19` (CI uses Node 24)
 - pnpm `>= 10` (repo pinned to `pnpm@10.34.5` via `packageManager`)
 
 ## Install
