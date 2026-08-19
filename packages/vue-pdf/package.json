@@ -1,6 +1,6 @@
 {
   "name": "@daguanren21/vue-pdf",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Community-maintained Vue 2.7 PDF viewer based on Franck Freiburger's vue-pdf, rebuilt as modern ESM for Vite/webpack",
   "type": "module",
   "main": "./dist/vue-pdf.js",
