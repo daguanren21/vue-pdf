@@ -85,7 +85,7 @@ pnpm typecheck
 pnpm test
 ```
 
-Requires Node `>= 20.19`, pnpm `>= 10` (`packageManager`: `pnpm@10.34.5`).
+Requires Node `^22.11 || ^24 || >=26`, pnpm `>= 10` (`packageManager`: `pnpm@10.34.5`).
 
 ## Migration from `vue-pdf@4`
 
