@@ -20,7 +20,7 @@ export function setWorkerSrc(workerSrc: string): void {
  * No CDN. Works offline as long as the package files are served together.
  */
 export function resolveBundledWorkerSrc(): string {
-  // Worker is copied into dist/ at build time; leave URL resolution to runtime.
+  // The package build keeps this untouched, then removes the marker from its published ESM.
   return new URL(/* @vite-ignore */ './pdf.worker.min.mjs', import.meta.url).href
 }
 

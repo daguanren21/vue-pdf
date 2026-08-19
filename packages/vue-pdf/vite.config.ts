@@ -9,9 +9,21 @@ import { fileURLToPath, URL } from 'node:url'
 const require = createRequire(import.meta.url)
 const root = fileURLToPath(new URL('.', import.meta.url))
 
-function copyPdfWorker(): Plugin {
+function bundlePdfWorker(): Plugin {
+  const viteIgnoreMarker = '/* @vite-ignore */'
+
   return {
-    name: 'copy-pdf-worker',
+    name: 'bundle-pdf-worker',
+    generateBundle(_options, bundle) {
+      const entry = bundle['vue-pdf.js']
+      if (entry?.type !== 'chunk')
+        this.error('Expected the vue-pdf.js entry chunk during the package build.')
+      if (!entry.code.includes(viteIgnoreMarker))
+        this.error('Expected the PDF worker URL to retain its Vite ignore marker during the package build.')
+
+      // Preserve source-map offsets while exposing a static URL to consumer bundlers.
+      entry.code = entry.code.replace(viteIgnoreMarker, ' '.repeat(viteIgnoreMarker.length))
+    },
     closeBundle() {
       const workerSrc = require.resolve('pdfjs-dist/build/pdf.worker.min.mjs')
       const outDir = join(root, 'dist')
@@ -36,7 +48,7 @@ export default defineConfig({
       insertTypesEntry: true,
       entryRoot: 'src',
     }),
-    copyPdfWorker(),
+    bundlePdfWorker(),
   ],
   build: {
     emptyOutDir: true,

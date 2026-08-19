@@ -39,8 +39,8 @@
     "build": "vite build",
     "dev": "vite build --watch",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "test": "pnpm build && vitest run",
+    "test:watch": "pnpm build && vitest"
   },
   "keywords": [
     "vue",
